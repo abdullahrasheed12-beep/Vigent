@@ -54,6 +54,11 @@ Do not include placeholder text like [Your Name] or generic statements. Write as
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt)
         
+        if not response or not hasattr(response, 'text') or not response.text:
+            return jsonify({
+                'error': 'Gemini API returned empty response. This may be due to safety filters or content blocks.'
+            }), 400
+        
         proposal_text = response.text
         
         return jsonify({
