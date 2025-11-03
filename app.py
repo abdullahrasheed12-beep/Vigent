@@ -51,7 +51,7 @@ Write a personalized proposal that:
 
 Do not include placeholder text like [Your Name] or generic statements. Write as if you are a skilled freelancer with relevant experience."""
 
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         response = model.generate_content(prompt)
         
         if not response or not hasattr(response, 'text') or not response.text:
