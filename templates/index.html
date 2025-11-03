@@ -110,8 +110,8 @@
                 </div>
             </div>
 
-            <!-- Proposal Section (Right 1/3) -->
-            <div class="lg:col-span-1">
+            <!-- Proposal Section (Right 1/3 on desktop, modal on mobile) -->
+            <div class="lg:col-span-1 hidden lg:block">
                 <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Proposal Generator</h2>
                     
@@ -164,6 +164,67 @@
         </div>
     </div>
 
+    <!-- Mobile Modal for Proposal Generator -->
+    <div id="mobileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
+        <div class="fixed inset-x-0 bottom-0 bg-white rounded-t-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Proposal Generator</h2>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Empty State -->
+                <div id="emptyStateMobile" class="text-center py-12">
+                    <svg class="mx-auto h-20 w-20 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p class="mt-4 text-gray-500 text-sm">Click "Generate Proposal" on any job to create an AI-powered proposal</p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingStateMobile" class="hidden text-center py-12">
+                    <div class="loader mx-auto mb-4"></div>
+                    <p class="text-gray-600">Generating proposal with AI...</p>
+                </div>
+
+                <!-- Proposal Display -->
+                <div id="proposalDisplayMobile" class="hidden">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Generated Proposal</label>
+                        <textarea 
+                            id="proposalTextMobile" 
+                            rows="10" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                            placeholder="Your AI-generated proposal will appear here..."
+                        ></textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <button id="copyBtnMobile" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copy to Clipboard
+                        </button>
+                        <button id="regenerateBtnMobile" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            Regenerate
+                        </button>
+                    </div>
+                    <div id="copySuccessMobile" class="hidden mt-3 p-2 bg-green-100 text-green-700 rounded text-sm text-center">
+                        ✓ Copied to clipboard!
+                    </div>
+                    <div id="errorMessageMobile" class="hidden mt-3 p-2 bg-red-100 text-red-700 rounded text-sm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let currentJobData = null;
 
@@ -191,6 +252,25 @@
             noResults.classList.toggle('hidden', visibleCount > 0);
         });
 
+        // Mobile modal controls
+        const mobileModal = document.getElementById('mobileModal');
+        const closeModal = document.getElementById('closeModal');
+
+        function openMobileModal() {
+            mobileModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileModal() {
+            mobileModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModal.addEventListener('click', closeMobileModal);
+        mobileModal.addEventListener('click', (e) => {
+            if (e.target === mobileModal) closeMobileModal();
+        });
+
         // Generate proposal
         document.querySelectorAll('.generate-btn').forEach(btn => {
             btn.addEventListener('click', async (e) => {
@@ -203,15 +283,22 @@
                     budget: card.dataset.jobBudget
                 };
 
+                // Check if mobile
+                if (window.innerWidth < 1024) {
+                    openMobileModal();
+                }
+
                 await generateProposal();
             });
         });
 
         async function generateProposal() {
-            const emptyState = document.getElementById('emptyState');
-            const loadingState = document.getElementById('loadingState');
-            const proposalDisplay = document.getElementById('proposalDisplay');
-            const errorMessage = document.getElementById('errorMessage');
+            const isMobile = window.innerWidth < 1024;
+            
+            const emptyState = document.getElementById(isMobile ? 'emptyStateMobile' : 'emptyState');
+            const loadingState = document.getElementById(isMobile ? 'loadingStateMobile' : 'loadingState');
+            const proposalDisplay = document.getElementById(isMobile ? 'proposalDisplayMobile' : 'proposalDisplay');
+            const errorMessage = document.getElementById(isMobile ? 'errorMessageMobile' : 'errorMessage');
 
             emptyState.classList.add('hidden');
             loadingState.classList.remove('hidden');
@@ -230,7 +317,8 @@
                 const data = await response.json();
 
                 if (data.success && data.proposal) {
-                    document.getElementById('proposalText').value = data.proposal;
+                    const proposalTextEl = document.getElementById(isMobile ? 'proposalTextMobile' : 'proposalText');
+                    proposalTextEl.value = data.proposal;
                     loadingState.classList.add('hidden');
                     proposalDisplay.classList.remove('hidden');
                     proposalDisplay.classList.add('fade-in');
@@ -270,6 +358,36 @@
 
         // Regenerate
         document.getElementById('regenerateBtn').addEventListener('click', () => {
+            if (currentJobData) {
+                generateProposal();
+            }
+        });
+
+        // Mobile Copy to clipboard
+        document.getElementById('copyBtnMobile').addEventListener('click', async () => {
+            const proposalText = document.getElementById('proposalTextMobile');
+            const successMsg = document.getElementById('copySuccessMobile');
+            
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(proposalText.value);
+                } else {
+                    proposalText.select();
+                    document.execCommand('copy');
+                }
+                
+                successMsg.classList.remove('hidden');
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                proposalText.select();
+            }
+        });
+
+        // Mobile Regenerate
+        document.getElementById('regenerateBtnMobile').addEventListener('click', () => {
             if (currentJobData) {
                 generateProposal();
             }
