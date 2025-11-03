@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "Python Developer Needed for AI Automation Tool",
+    "description": "We're looking for an experienced Python developer to build an AI-powered automation tool. The ideal candidate should have experience with Flask, REST APIs, and integrating AI models. This is a 2-3 week project with potential for ongoing work.",
+    "budget": "$1,500 - $3,000",
+    "posted": "2 hours ago",
+    "skills": ["Python", "Flask", "AI/ML", "REST API"],
+    "duration": "2-3 weeks"
+  },
+  {
+    "id": 2,
+    "title": "Full Stack Developer - React & Node.js Dashboard",
+    "description": "Need a full-stack developer to create a modern analytics dashboard using React and Node.js. The project includes data visualization, real-time updates, and user authentication. Must have portfolio examples.",
+    "budget": "$2,000 - $4,000",
+    "posted": "5 hours ago",
+    "skills": ["React", "Node.js", "MongoDB", "Chart.js"],
+    "duration": "3-4 weeks"
+  },
+  {
+    "id": 3,
+    "title": "Web Scraping Expert for E-commerce Data Collection",
+    "description": "Looking for a web scraping specialist to extract product data from multiple e-commerce websites. Must handle dynamic content and bypass basic anti-scraping measures. Experience with Python (BeautifulSoup/Selenium) required.",
+    "budget": "$500 - $1,000",
+    "posted": "1 day ago",
+    "skills": ["Python", "Web Scraping", "Selenium", "Data Processing"],
+    "duration": "1-2 weeks"
+  },
+  {
+    "id": 4,
+    "title": "Mobile App Developer - Flutter iOS/Android",
+    "description": "We need a Flutter developer to build a cross-platform mobile app for our startup. The app will include user authentication, real-time chat, and payment integration. Looking for someone with 3+ years Flutter experience.",
+    "budget": "$5,000 - $8,000",
+    "posted": "3 days ago",
+    "skills": ["Flutter", "Firebase", "Mobile Development", "Payment Integration"],
+    "duration": "6-8 weeks"
+  },
+  {
+    "id": 5,
+    "title": "WordPress Plugin Development for Booking System",
+    "description": "Seeking a WordPress expert to develop a custom booking plugin with calendar integration, payment processing, and email notifications. Must be compatible with latest WordPress version.",
+    "budget": "$800 - $1,500",
+    "posted": "1 week ago",
+    "skills": ["WordPress", "PHP", "JavaScript", "WooCommerce"],
+    "duration": "2-3 weeks"
+  },
+  {
+    "id": 6,
+    "title": "AI/ML Engineer for Computer Vision Project",
+    "description": "Looking for an experienced AI engineer to develop a computer vision model for object detection and classification. Experience with TensorFlow/PyTorch and OpenCV required. Dataset will be provided.",
+    "budget": "$3,000 - $6,000",
+    "posted": "4 days ago",
+    "skills": ["Machine Learning", "Computer Vision", "TensorFlow", "Python"],
+    "duration": "4-6 weeks"
+  },
+  {
+    "id": 7,
+    "title": "DevOps Engineer - AWS Infrastructure Setup",
+    "description": "Need a DevOps expert to set up and configure AWS infrastructure including EC2, RDS, S3, and CI/CD pipelines. Must have experience with Docker, Kubernetes, and Infrastructure as Code.",
+    "budget": "$2,500 - $4,500",
+    "posted": "2 days ago",
+    "skills": ["AWS", "Docker", "Kubernetes", "Terraform"],
+    "duration": "2-3 weeks"
+  },
+  {
+    "id": 8,
+    "title": "Shopify Expert for E-commerce Store Customization",
+    "description": "Looking for a Shopify developer to customize our online store theme, add custom features, and optimize for conversions. Experience with Liquid templating and Shopify APIs required.",
+    "budget": "$1,000 - $2,000",
+    "posted": "6 hours ago",
+    "skills": ["Shopify", "Liquid", "JavaScript", "E-commerce"],
+    "duration": "2-3 weeks"
+  }
+]
