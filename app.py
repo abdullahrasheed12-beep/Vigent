@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -69,6 +69,48 @@ Do not include placeholder text like [Your Name] or generic statements. Write as
     except Exception as e:
         return jsonify({
             'error': f'Error generating proposal: {str(e)}'
+        }), 500
+
+@app.route('/callback')
+def oauth_callback():
+    """
+    OAuth callback route for Upwork integration.
+    This endpoint handles the OAuth redirect from Upwork after user authorization.
+    
+    Expected query parameters:
+    - code: Authorization code from Upwork
+    - state: State parameter for CSRF protection
+    
+    Callback URL to configure in Upwork API settings:
+    https://bid-genius-dashboard.vercel.app/callback
+    """
+    try:
+        code = request.args.get('code')
+        state = request.args.get('state')
+        
+        print("=" * 60)
+        print("UPWORK OAUTH CALLBACK RECEIVED")
+        print("=" * 60)
+        print(f"Authorization Code: {code}")
+        print(f"State Parameter: {state}")
+        print(f"Full Query String: {request.query_string.decode('utf-8')}")
+        print("=" * 60)
+        
+        if not code:
+            return jsonify({
+                'success': False,
+                'error': 'Missing authorization code'
+            }), 400
+        
+        app.logger.info(f"OAuth callback received - Code: {code[:10]}..., State: {state}")
+        
+        return redirect(url_for('index'))
+        
+    except Exception as e:
+        app.logger.error(f"Error in OAuth callback: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': f'OAuth callback error: {str(e)}'
         }), 500
 
 if __name__ == '__main__':
