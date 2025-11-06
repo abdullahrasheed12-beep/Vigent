@@ -7,16 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-            background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
+            background: linear-gradient(135deg, #0a1929 0%, #0d2238 25%, #1e3a5f 50%, #1a4d6d 75%, #1b5e7e 100%);
             min-height: 100vh;
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .glass {
@@ -36,33 +28,40 @@
         }
 
         .glass-btn {
-            background: linear-gradient(135deg, rgba(138, 99, 224, 0.3), rgba(79, 172, 254, 0.3));
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.4), rgba(27, 94, 126, 0.4));
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 15px 0 rgba(138, 99, 224, 0.3);
+            box-shadow: 0 4px 15px 0 rgba(27, 94, 126, 0.3);
             transition: all 0.3s ease;
+            animation: buttonGlow 3s ease-in-out infinite;
         }
 
         .glass-btn:hover {
-            background: linear-gradient(135deg, rgba(138, 99, 224, 0.5), rgba(79, 172, 254, 0.5));
-            box-shadow: 0 6px 20px 0 rgba(138, 99, 224, 0.5);
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.6), rgba(27, 94, 126, 0.6));
+            box-shadow: 0 6px 20px 0 rgba(27, 94, 126, 0.5);
             transform: translateY(-2px);
         }
 
         .glass-btn-primary {
-            background: linear-gradient(135deg, rgba(138, 99, 224, 0.6), rgba(79, 172, 254, 0.6));
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.7), rgba(27, 94, 126, 0.7));
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 20px 0 rgba(138, 99, 224, 0.4);
+            box-shadow: 0 4px 20px 0 rgba(27, 94, 126, 0.4);
             transition: all 0.3s ease;
+            animation: buttonGlow 3s ease-in-out infinite;
         }
 
         .glass-btn-primary:hover {
-            background: linear-gradient(135deg, rgba(138, 99, 224, 0.8), rgba(79, 172, 254, 0.8));
-            box-shadow: 0 6px 25px 0 rgba(138, 99, 224, 0.6);
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.9), rgba(27, 94, 126, 0.9));
+            box-shadow: 0 6px 25px 0 rgba(27, 94, 126, 0.6);
             transform: translateY(-2px);
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% { box-shadow: 0 4px 20px 0 rgba(27, 94, 126, 0.4); }
+            50% { box-shadow: 0 4px 25px 0 rgba(0, 242, 254, 0.5); }
         }
 
         .job-card {
@@ -75,13 +74,20 @@
 
         .job-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(138, 99, 224, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(27, 94, 126, 0.4);
             background: rgba(255, 255, 255, 0.18);
+        }
+
+        .glass-frosted {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .loader {
             border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid rgba(138, 99, 224, 0.8);
+            border-top: 3px solid rgba(27, 94, 126, 0.8);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -102,9 +108,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .text-glow {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(138, 99, 224, 0.3);
-        }
 
         .line-clamp-2 {
             display: -webkit-box;
@@ -120,7 +123,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl md:text-3xl font-bold text-white text-glow">
+                    <h1 class="text-2xl md:text-3xl font-bold text-white">
                         Vigent
                     </h1>
                     <span class="ml-3 text-sm text-white opacity-80 hidden sm:inline">Your virtual ai agent</span>
@@ -132,7 +135,7 @@
     <!-- Hero Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="text-center mb-8">
-            <h2 class="text-3xl md:text-5xl font-bold text-white text-glow mb-2">Find your next big thing</h2>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-2">Find your next big thing</h2>
             <p class="text-white opacity-80 text-sm md:text-base">AI-powered job applications in seconds</p>
         </div>
     </div>
@@ -140,7 +143,7 @@
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Job Source Toggle -->
-        <div class="mb-6 glass rounded-xl p-4">
+        <div class="mb-6 glass-frosted rounded-xl p-4">
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <div class="flex items-center space-x-4">
                     <span class="text-sm font-medium text-white">Job Source:</span>
@@ -157,7 +160,7 @@
         </div>
 
         <!-- Filters Section (shown for remote jobs) -->
-        <div id="filtersSection" class="hidden mb-6 glass rounded-xl p-4">
+        <div id="filtersSection" class="hidden mb-6 glass-frosted rounded-xl p-4">
             <h3 class="text-sm font-semibold text-white mb-4">Filters</h3>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Job Type Filter -->
@@ -232,11 +235,34 @@
             </div>
         </div>
 
+        <!-- Mobile Resume Upload (always visible on mobile) -->
+        <div class="mb-6 lg:hidden">
+            <div class="glass-frosted rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-6 h-6 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <span class="text-sm text-white opacity-90" id="resumeStatusMobileTop">📄 Upload Resume</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="file" id="resumeUploadMobileTop" accept=".pdf,.txt" class="hidden">
+                        <label for="resumeUploadMobileTop" class="px-3 py-1.5 glass-btn-primary text-white text-xs font-medium rounded cursor-pointer">
+                            Choose File
+                        </label>
+                        <button id="clearResumeMobileTop" class="hidden px-3 py-1.5 glass-btn text-white text-xs font-medium rounded">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Job Feed Section (Left 2/3) -->
             <div class="lg:col-span-2">
                 <div class="glass-strong rounded-xl p-6">
-                    <h2 class="text-2xl font-bold text-white text-glow mb-6">Available Jobs</h2>
+                    <h2 class="text-2xl font-bold text-white mb-6">Available Jobs</h2>
                     <div id="jobFeed" class="space-y-4">
                         {% for job in jobs %}
                         <div class="job-card rounded-lg p-5 cursor-pointer" 
@@ -275,7 +301,7 @@
             <!-- Proposal Section (Right 1/3 on desktop, modal on mobile) -->
             <div class="lg:col-span-1 hidden lg:block">
                 <div class="glass-strong rounded-xl p-6 sticky top-24">
-                    <h2 class="text-2xl font-bold text-white text-glow mb-4">Application Prep</h2>
+                    <h2 class="text-2xl font-bold text-white mb-4">Application Prep</h2>
                     
                     <!-- Resume Upload Section -->
                     <div class="mb-4 p-3 glass rounded-lg border-2 border-dashed border-white border-opacity-30">
@@ -366,7 +392,7 @@
         <div class="fixed inset-x-0 bottom-0 glass-strong rounded-t-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-white text-glow">Application Prep</h2>
+                    <h2 class="text-2xl font-bold text-white">Application Prep</h2>
                     <button id="closeModal" class="text-white opacity-80 hover:opacity-100">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -467,17 +493,22 @@
         // Resume upload handling
         const resumeUpload = document.getElementById('resumeUpload');
         const resumeUploadMobile = document.getElementById('resumeUploadMobile');
+        const resumeUploadMobileTop = document.getElementById('resumeUploadMobileTop');
         const resumeStatus = document.getElementById('resumeStatus');
         const resumeStatusMobile = document.getElementById('resumeStatusMobile');
+        const resumeStatusMobileTop = document.getElementById('resumeStatusMobileTop');
         const clearResume = document.getElementById('clearResume');
         const clearResumeMobile = document.getElementById('clearResumeMobile');
+        const clearResumeMobileTop = document.getElementById('clearResumeMobileTop');
 
         // Check if resume is already uploaded
         if (resumeText) {
             resumeStatus.textContent = '✅ Resume uploaded';
             resumeStatusMobile.textContent = '✅ Resume uploaded';
+            if (resumeStatusMobileTop) resumeStatusMobileTop.textContent = '✅ Resume uploaded';
             clearResume.classList.remove('hidden');
             clearResumeMobile.classList.remove('hidden');
+            if (clearResumeMobileTop) clearResumeMobileTop.classList.remove('hidden');
         }
 
         function handleResumeUpload(file) {
@@ -487,8 +518,10 @@
                 localStorage.setItem('resumeText', resumeText);
                 resumeStatus.textContent = '✅ ' + file.name;
                 resumeStatusMobile.textContent = '✅ ' + file.name;
+                if (resumeStatusMobileTop) resumeStatusMobileTop.textContent = '✅ ' + file.name;
                 clearResume.classList.remove('hidden');
                 clearResumeMobile.classList.remove('hidden');
+                if (clearResumeMobileTop) clearResumeMobileTop.classList.remove('hidden');
             };
             reader.readAsText(file);
         }
@@ -501,15 +534,24 @@
             if (e.target.files[0]) handleResumeUpload(e.target.files[0]);
         });
 
+        if (resumeUploadMobileTop) {
+            resumeUploadMobileTop.addEventListener('change', (e) => {
+                if (e.target.files[0]) handleResumeUpload(e.target.files[0]);
+            });
+        }
+
         clearResume.addEventListener('click', () => {
             resumeText = '';
             localStorage.removeItem('resumeText');
             resumeStatus.textContent = '📄 Upload Resume';
             resumeStatusMobile.textContent = '📄 Upload Resume';
+            if (resumeStatusMobileTop) resumeStatusMobileTop.textContent = '📄 Upload Resume';
             clearResume.classList.add('hidden');
             clearResumeMobile.classList.add('hidden');
+            if (clearResumeMobileTop) clearResumeMobileTop.classList.add('hidden');
             resumeUpload.value = '';
             resumeUploadMobile.value = '';
+            if (resumeUploadMobileTop) resumeUploadMobileTop.value = '';
         });
 
         clearResumeMobile.addEventListener('click', () => {
@@ -517,11 +559,30 @@
             localStorage.removeItem('resumeText');
             resumeStatus.textContent = '📄 Upload Resume';
             resumeStatusMobile.textContent = '📄 Upload Resume';
+            if (resumeStatusMobileTop) resumeStatusMobileTop.textContent = '📄 Upload Resume';
             clearResume.classList.add('hidden');
             clearResumeMobile.classList.add('hidden');
+            if (clearResumeMobileTop) clearResumeMobileTop.classList.add('hidden');
             resumeUpload.value = '';
             resumeUploadMobile.value = '';
+            if (resumeUploadMobileTop) resumeUploadMobileTop.value = '';
         });
+
+        if (clearResumeMobileTop) {
+            clearResumeMobileTop.addEventListener('click', () => {
+                resumeText = '';
+                localStorage.removeItem('resumeText');
+                resumeStatus.textContent = '📄 Upload Resume';
+                resumeStatusMobile.textContent = '📄 Upload Resume';
+                resumeStatusMobileTop.textContent = '📄 Upload Resume';
+                clearResume.classList.add('hidden');
+                clearResumeMobile.classList.add('hidden');
+                clearResumeMobileTop.classList.add('hidden');
+                resumeUpload.value = '';
+                resumeUploadMobile.value = '';
+                resumeUploadMobileTop.value = '';
+            });
+        }
 
         // Job source toggle
         const mockJobsBtn = document.getElementById('mockJobsBtn');
