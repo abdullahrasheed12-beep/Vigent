@@ -1,6 +1,9 @@
 # Flask Web Framework
 flask>=3.1.2
 
+# Production WSGI Server
+gunicorn>=21.2.0
+
 # Environment variable management
 python-dotenv>=1.2.1
 
