@@ -34,14 +34,22 @@ A simple, professional web application that helps freelancers generate AI-powere
 ```
 
 ### Key Features Implemented
-1. **Job Feed Dashboard** - Displays 8 mock Upwork jobs with title, description, budget, skills, and posting time
+1. **Job Feed Dashboard** - Displays mock jobs and live RSS feeds from Remotive and We Work Remotely
 2. **Real-time Search** - Client-side keyword filtering of job listings
-3. **AI Proposal Generation** - Gemini-powered proposal creation based on job details
-4. **Proposal Review Interface** - Editable textarea with generated proposals
-5. **Copy to Clipboard** - One-click copying for manual posting to Upwork
-6. **Regenerate Function** - Ability to generate new proposals for the same job
-7. **Loading States** - Proper UX feedback during API calls
-8. **Responsive Design** - Mobile-friendly Tailwind CSS layout
+3. **Advanced Filters** - Filter by job type, location, publish date, and source
+4. **Application Prep Assistant** (NEW) - Complete AI-powered application preparation:
+   - Resume upload with localStorage persistence
+   - AI-generated cover letter tailored to job and resume
+   - AI-generated interview questions based on job requirements
+   - AI-generated answers based on resume experience
+   - Editable cover letter and Q&A responses
+   - One-click "Copy All" for complete application package
+   - "Apply Now" button that opens job link in new tab
+5. **AI Proposal Generation** - Gemini-powered proposal creation based on job details
+6. **Copy to Clipboard** - One-click copying for manual posting to job sites
+7. **Regenerate Function** - Ability to regenerate proposals and applications
+8. **Loading States** - Proper UX feedback during API calls
+9. **Responsive Design** - Mobile-friendly with bottom sheet modal on mobile
 
 ## Dependencies
 
@@ -75,9 +83,47 @@ A simple, professional web application that helps freelancers generate AI-powere
 - Accepts JSON: `{title, description, budget}`
 - Calls Gemini API with custom prompt
 - Returns: `{success: true, proposal: "text"}` or error
-- Uses `gemini-1.5-flash` model
+- Uses `gemini-2.5-flash` model
+
+### `POST /api/generate-application`
+- Accepts JSON: `{job: {title, description, budget}, resume: "text"}`
+- Generates complete application package with Gemini AI:
+  - Cover letter tailored to job and resume
+  - 5 interview questions based on job requirements
+  - AI-generated answers based on resume
+- Returns: `{success: true, cover_letter: "text", questions: [{question, answer}]}`
+- Includes robust markdown fence parsing for reliable question extraction
+- Uses `gemini-2.5-flash` model
+
+### `GET /api/jobs`
+- Fetches live remote jobs from RSS feeds
+- Query params: `source` (remotive, wwremote, or all)
+- Parses Remotive.io and We Work Remotely RSS feeds
+- Returns: `{success: true, jobs: [], count: N}`
+- Includes job type, location, publish date, source metadata
+
+### `GET /callback`
+- OAuth callback route for future Upwork API integration
+- Handles authorization code from Upwork
+- Currently logs parameters for development
 
 ## Recent Changes
+
+**November 6, 2025** - Application Prep Assistant Feature
+- Built complete Application Prep Assistant with resume upload functionality
+- Added AI-powered cover letter generation tailored to job and resume
+- Implemented AI-generated interview questions based on job requirements
+- Created AI-generated answers using resume context
+- Added robust markdown fence parsing for reliable Gemini response handling
+- Implemented one-click "Copy All" for complete application package
+- Added "Apply Now" button that opens job links in new tab
+- Created editable textareas for all generated content
+- Implemented localStorage persistence for uploaded resumes
+- Updated UI to "Application Prep" with resume upload section
+- Added comprehensive filters for live job feeds (job type, location, date, source)
+- Integrated Remotive.io and We Work Remotely RSS feeds
+- All features work on both desktop and mobile views
+
 **November 3, 2025** - Initial MVP Development
 - Created complete Flask application structure
 - Implemented 8 mock Upwork job listings
