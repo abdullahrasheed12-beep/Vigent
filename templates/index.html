@@ -3,68 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe AI Agent - Upwork Auto-Bidder</title>
+    <title>Vigent - Your Virtual AI Agent</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .job-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            min-height: 100vh;
         }
-        .job-card {
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(138, 99, 224, 0.3), rgba(79, 172, 254, 0.3));
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px 0 rgba(138, 99, 224, 0.3);
             transition: all 0.3s ease;
         }
+
+        .glass-btn:hover {
+            background: linear-gradient(135deg, rgba(138, 99, 224, 0.5), rgba(79, 172, 254, 0.5));
+            box-shadow: 0 6px 20px 0 rgba(138, 99, 224, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .glass-btn-primary {
+            background: linear-gradient(135deg, rgba(138, 99, 224, 0.6), rgba(79, 172, 254, 0.6));
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 20px 0 rgba(138, 99, 224, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .glass-btn-primary:hover {
+            background: linear-gradient(135deg, rgba(138, 99, 224, 0.8), rgba(79, 172, 254, 0.8));
+            box-shadow: 0 6px 25px 0 rgba(138, 99, 224, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .job-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(138, 99, 224, 0.3);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
         .loader {
-            border: 3px solid #f3f4f6;
-            border-top: 3px solid #3b82f6;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid rgba(138, 99, 224, 0.8);
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(138, 99, 224, 0.3);
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body>
     <!-- Navbar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="glass sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Vibe AI Agent
+                    <h1 class="text-2xl md:text-3xl font-bold text-white text-glow">
+                        Vigent
                     </h1>
-                    <span class="ml-3 text-sm text-gray-500 hidden sm:inline">Upwork Auto-Bidder Prototype</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm text-gray-600">Powered by</span>
-                    <span class="text-sm font-semibold text-purple-600">Google Gemini</span>
+                    <span class="ml-3 text-sm text-white opacity-80 hidden sm:inline">Your virtual ai agent</span>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl md:text-5xl font-bold text-white text-glow mb-2">Find your next big thing</h2>
+            <p class="text-white opacity-80 text-sm md:text-base">AI-powered job applications in seconds</p>
+        </div>
+    </div>
+
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Job Source Toggle -->
-        <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+        <div class="mb-6 glass rounded-xl p-4">
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm font-medium text-gray-700">Job Source:</span>
-                    <div class="flex bg-gray-100 rounded-lg p-1">
-                        <button id="mockJobsBtn" class="px-4 py-2 rounded-md text-sm font-medium transition bg-white text-blue-600 shadow-sm">
-                            Mock Jobs
+                    <span class="text-sm font-medium text-white">Job Source:</span>
+                    <div class="flex glass rounded-lg p-1">
+                        <button id="mockJobsBtn" class="px-4 py-2 rounded-md text-sm font-medium transition glass-btn-primary text-white">
+                            Upwork Jobs
                         </button>
-                        <button id="remoteJobsBtn" class="px-4 py-2 rounded-md text-sm font-medium transition text-gray-600 hover:text-gray-900">
+                        <button id="remoteJobsBtn" class="px-4 py-2 rounded-md text-sm font-medium transition text-white opacity-70 hover:opacity-100">
                             Live Jobs
                         </button>
                     </div>
@@ -73,58 +157,58 @@
         </div>
 
         <!-- Filters Section (shown for remote jobs) -->
-        <div id="filtersSection" class="hidden mb-6 bg-white rounded-lg shadow-md p-4">
-            <h3 class="text-sm font-semibold text-gray-700 mb-4">Filters</h3>
+        <div id="filtersSection" class="hidden mb-6 glass rounded-xl p-4">
+            <h3 class="text-sm font-semibold text-white mb-4">Filters</h3>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Job Type Filter -->
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-2">Job Type</label>
-                    <select id="jobTypeFilter" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="all">All Types</option>
-                        <option value="Full-time">Full-time</option>
-                        <option value="Part-time">Part-time</option>
-                        <option value="Contract">Contract</option>
+                    <label class="block text-xs font-medium text-white opacity-90 mb-2">Job Type</label>
+                    <select id="jobTypeFilter" class="w-full px-3 py-2 text-sm rounded-lg glass-btn text-white focus:outline-none">
+                        <option value="all" class="bg-gray-800">All Types</option>
+                        <option value="Full-time" class="bg-gray-800">Full-time</option>
+                        <option value="Part-time" class="bg-gray-800">Part-time</option>
+                        <option value="Contract" class="bg-gray-800">Contract</option>
                     </select>
                 </div>
 
                 <!-- Location Filter -->
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-2">Location</label>
-                    <select id="locationFilter" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="all">All Locations</option>
-                        <option value="Remote">Remote</option>
-                        <option value="Anywhere">Anywhere</option>
-                        <option value="US">US Only</option>
-                        <option value="Europe">Europe</option>
+                    <label class="block text-xs font-medium text-white opacity-90 mb-2">Location</label>
+                    <select id="locationFilter" class="w-full px-3 py-2 text-sm rounded-lg glass-btn text-white focus:outline-none">
+                        <option value="all" class="bg-gray-800">All Locations</option>
+                        <option value="Remote" class="bg-gray-800">Remote</option>
+                        <option value="Anywhere" class="bg-gray-800">Anywhere</option>
+                        <option value="US" class="bg-gray-800">US Only</option>
+                        <option value="Europe" class="bg-gray-800">Europe</option>
                     </select>
                 </div>
 
                 <!-- Date Filter -->
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-2">Posted Date</label>
-                    <select id="dateFilter" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="all">All Time</option>
-                        <option value="today">Today</option>
-                        <option value="week">Past Week</option>
-                        <option value="month">Past Month</option>
+                    <label class="block text-xs font-medium text-white opacity-90 mb-2">Posted Date</label>
+                    <select id="dateFilter" class="w-full px-3 py-2 text-sm rounded-lg glass-btn text-white focus:outline-none">
+                        <option value="all" class="bg-gray-800">All Time</option>
+                        <option value="today" class="bg-gray-800">Today</option>
+                        <option value="week" class="bg-gray-800">Past Week</option>
+                        <option value="month" class="bg-gray-800">Past Month</option>
                     </select>
                 </div>
 
                 <!-- Source Filter -->
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-2">Source</label>
-                    <select id="sourceFilter" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="all">All Sources</option>
-                        <option value="Remotive">Remotive</option>
-                        <option value="We Work Remotely">We Work Remotely</option>
+                    <label class="block text-xs font-medium text-white opacity-90 mb-2">Source</label>
+                    <select id="sourceFilter" class="w-full px-3 py-2 text-sm rounded-lg glass-btn text-white focus:outline-none">
+                        <option value="all" class="bg-gray-800">All Sources</option>
+                        <option value="Remotive" class="bg-gray-800">Remotive</option>
+                        <option value="We Work Remotely" class="bg-gray-800">We Work Remotely</option>
                     </select>
                 </div>
             </div>
             <div class="mt-4 flex gap-2">
-                <button id="applyFiltersBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition">
+                <button id="applyFiltersBtn" class="px-4 py-2 glass-btn-primary text-white text-sm font-medium rounded-md">
                     Apply Filters
                 </button>
-                <button id="clearFiltersBtn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium rounded-md transition">
+                <button id="clearFiltersBtn" class="px-4 py-2 glass-btn text-white text-sm font-medium rounded-md">
                     Clear Filters
                 </button>
             </div>
@@ -137,9 +221,9 @@
                     type="text" 
                     id="searchInput" 
                     placeholder="Search jobs by keyword (e.g., Python, React, AI)..." 
-                    class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                    class="w-full px-4 py-3 pl-12 rounded-lg glass text-white placeholder-white placeholder-opacity-60 focus:outline-none"
                 />
-                <svg class="absolute left-4 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="absolute left-4 top-3.5 h-5 w-5 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 <button id="fetchIndeedBtn" class="hidden absolute right-3 top-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition">
@@ -151,28 +235,28 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Job Feed Section (Left 2/3) -->
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Available Jobs</h2>
+                <div class="glass-strong rounded-xl p-6">
+                    <h2 class="text-2xl font-bold text-white text-glow mb-6">Available Jobs</h2>
                     <div id="jobFeed" class="space-y-4">
                         {% for job in jobs %}
-                        <div class="job-card bg-gray-50 border border-gray-200 rounded-lg p-5 cursor-pointer" 
+                        <div class="job-card rounded-lg p-5 cursor-pointer" 
                              data-job-id="{{ job.id }}"
                              data-job-title="{{ job.title }}"
                              data-job-description="{{ job.description }}"
                              data-job-budget="{{ job.budget }}">
                             <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-lg font-semibold text-gray-800 hover:text-blue-600">{{ job.title }}</h3>
-                                <span class="text-sm text-gray-500">{{ job.posted }}</span>
+                                <h3 class="text-lg font-semibold text-white">{{ job.title }}</h3>
+                                <span class="text-sm text-white opacity-70">{{ job.posted }}</span>
                             </div>
-                            <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ job.description }}</p>
+                            <p class="text-white opacity-80 text-sm mb-3 line-clamp-2">{{ job.description }}</p>
                             <div class="flex flex-wrap gap-2 mb-3">
                                 {% for skill in job.skills %}
-                                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">{{ skill }}</span>
+                                <span class="px-2 py-1 glass-btn text-white text-xs rounded-full">{{ skill }}</span>
                                 {% endfor %}
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-green-600 font-semibold">{{ job.budget }}</span>
-                                <button class="generate-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+                                <span class="text-white font-semibold">{{ job.budget }}</span>
+                                <button class="generate-btn glass-btn-primary text-white px-4 py-2 rounded-md text-sm font-medium">
                                     Generate Proposal
                                 </button>
                             </div>
@@ -180,31 +264,31 @@
                         {% endfor %}
                     </div>
                     <div id="noResults" class="hidden text-center py-12">
-                        <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="mx-auto h-16 w-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <p class="mt-4 text-gray-500">No jobs found matching your search.</p>
+                        <p class="mt-4 text-white opacity-70">No jobs found matching your search.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Proposal Section (Right 1/3 on desktop, modal on mobile) -->
             <div class="lg:col-span-1 hidden lg:block">
-                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Application Prep</h2>
+                <div class="glass-strong rounded-xl p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold text-white text-glow mb-4">Application Prep</h2>
                     
                     <!-- Resume Upload Section -->
-                    <div class="mb-4 p-3 bg-blue-50 rounded-lg border-2 border-dashed border-blue-200">
+                    <div class="mb-4 p-3 glass rounded-lg border-2 border-dashed border-white border-opacity-30">
                         <div class="text-center">
-                            <svg class="w-10 h-10 mx-auto mb-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-10 h-10 mx-auto mb-2 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                             </svg>
-                            <p class="text-xs text-gray-700 mb-2" id="resumeStatus">📄 Upload Resume</p>
+                            <p class="text-xs text-white opacity-90 mb-2" id="resumeStatus">📄 Upload Resume</p>
                             <input type="file" id="resumeUpload" accept=".pdf,.txt" class="hidden">
-                            <label for="resumeUpload" class="inline-block px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded cursor-pointer transition">
+                            <label for="resumeUpload" class="inline-block px-3 py-1.5 glass-btn-primary text-white text-xs font-medium rounded cursor-pointer">
                                 Choose File
                             </label>
-                            <button id="clearResume" class="hidden ml-2 px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-medium rounded transition">
+                            <button id="clearResume" class="hidden ml-2 px-3 py-1.5 glass-btn text-white text-xs font-medium rounded">
                                 Clear
                             </button>
                         </div>
