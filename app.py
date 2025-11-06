@@ -74,73 +74,144 @@ Do not include placeholder text like [Your Name] or generic statements. Write as
         }), 500
 
 @app.route('/api/jobs')
-def get_indeed_jobs():
+def get_remote_jobs():
     """
-    Fetch live job listings from Indeed RSS feed.
+    Fetch live job listings from remote job board RSS feeds.
     Query parameters:
-    - q: Search query (default: "marketing analyst")
-    - l: Location (default: empty for all locations)
+    - source: Job board source (remotive, wwremote, or all)
     """
     try:
-        query = request.args.get('q', 'marketing analyst')
-        location = request.args.get('l', '')
+        source = request.args.get('source', 'all')
         
-        from urllib.parse import quote_plus
-        rss_url = f"https://rss.indeed.com/rss?q={quote_plus(query)}&l={quote_plus(location)}"
+        jobs = []
         
-        app.logger.info(f"Fetching Indeed RSS feed: {rss_url}")
-        feed = feedparser.parse(rss_url)
+        # Remotive.io RSS feed
+        if source in ['remotive', 'all']:
+            try:
+                app.logger.info("Fetching Remotive.io RSS feed")
+                remotive_url = "https://remotive.com/api/remote-jobs/feed"
+                feed = feedparser.parse(remotive_url)
+                
+                for entry in feed.entries[:15]:
+                    try:
+                        pub_date = entry.get('published', 'N/A')
+                        pub_date_obj = None
+                        if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                            pub_date_obj = datetime(*entry.published_parsed[:6])
+                            pub_date_formatted = pub_date_obj.strftime('%B %d, %Y')
+                        else:
+                            pub_date_formatted = pub_date
+                        
+                        summary = entry.get('summary', 'No description available')
+                        if len(summary) > 250:
+                            summary = summary[:250] + '...'
+                        
+                        # Extract job type and location from title or description
+                        title = entry.get('title', 'No Title')
+                        job_type = 'Full-time'
+                        location = 'Remote'
+                        
+                        if 'part-time' in title.lower() or 'part time' in summary.lower():
+                            job_type = 'Part-time'
+                        if 'contract' in title.lower() or 'freelance' in title.lower():
+                            job_type = 'Contract'
+                        
+                        job = {
+                            'id': hash(entry.get('link', '')),
+                            'title': title,
+                            'link': entry.get('link', '#'),
+                            'description': summary,
+                            'summary': summary,
+                            'published': pub_date_formatted,
+                            'published_date': pub_date_obj.isoformat() if pub_date_obj else None,
+                            'posted': pub_date_formatted,
+                            'source': 'Remotive',
+                            'budget': 'See job posting',
+                            'job_type': job_type,
+                            'location': location,
+                            'skills': []
+                        }
+                        jobs.append(job)
+                    except Exception as e:
+                        app.logger.error(f"Error parsing Remotive entry: {str(e)}")
+                        continue
+            except Exception as e:
+                app.logger.error(f"Error fetching Remotive feed: {str(e)}")
         
-        if not feed or not feed.entries:
+        # We Work Remotely RSS feed
+        if source in ['wwremote', 'all']:
+            try:
+                app.logger.info("Fetching We Work Remotely RSS feed")
+                wwr_url = "https://weworkremotely.com/remote-jobs.rss"
+                feed = feedparser.parse(wwr_url)
+                
+                for entry in feed.entries[:15]:
+                    try:
+                        pub_date = entry.get('published', 'N/A')
+                        pub_date_obj = None
+                        if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                            pub_date_obj = datetime(*entry.published_parsed[:6])
+                            pub_date_formatted = pub_date_obj.strftime('%B %d, %Y')
+                        else:
+                            pub_date_formatted = pub_date
+                        
+                        summary = entry.get('summary', 'No description available')
+                        if len(summary) > 250:
+                            summary = summary[:250] + '...'
+                        
+                        title = entry.get('title', 'No Title')
+                        job_type = 'Full-time'
+                        location = 'Anywhere'
+                        
+                        if 'part-time' in title.lower() or 'part time' in summary.lower():
+                            job_type = 'Part-time'
+                        if 'contract' in title.lower() or 'freelance' in title.lower():
+                            job_type = 'Contract'
+                        
+                        job = {
+                            'id': hash(entry.get('link', '') + 'wwr'),
+                            'title': title,
+                            'link': entry.get('link', '#'),
+                            'description': summary,
+                            'summary': summary,
+                            'published': pub_date_formatted,
+                            'published_date': pub_date_obj.isoformat() if pub_date_obj else None,
+                            'posted': pub_date_formatted,
+                            'source': 'We Work Remotely',
+                            'budget': 'See job posting',
+                            'job_type': job_type,
+                            'location': location,
+                            'skills': []
+                        }
+                        jobs.append(job)
+                    except Exception as e:
+                        app.logger.error(f"Error parsing WWR entry: {str(e)}")
+                        continue
+            except Exception as e:
+                app.logger.error(f"Error fetching WWR feed: {str(e)}")
+        
+        if not jobs:
             return jsonify({
                 'success': False,
-                'error': 'No jobs found or unable to fetch feed',
+                'error': 'No jobs found from any source',
                 'jobs': []
             }), 404
         
-        jobs = []
-        for entry in feed.entries[:20]:
-            try:
-                pub_date = entry.get('published', 'N/A')
-                if hasattr(entry, 'published_parsed') and entry.published_parsed:
-                    pub_date_formatted = datetime(*entry.published_parsed[:6]).strftime('%B %d, %Y')
-                else:
-                    pub_date_formatted = pub_date
-                
-                summary = entry.get('summary', 'No description available')
-                if len(summary) > 200:
-                    summary = summary[:200] + '...'
-                
-                job = {
-                    'id': hash(entry.get('link', '')),
-                    'title': entry.get('title', 'No Title'),
-                    'link': entry.get('link', '#'),
-                    'description': summary,
-                    'summary': summary,
-                    'published': pub_date_formatted,
-                    'posted': pub_date_formatted,
-                    'source': 'Indeed',
-                    'budget': 'Contact employer',
-                    'skills': []
-                }
-                jobs.append(job)
-            except Exception as e:
-                app.logger.error(f"Error parsing job entry: {str(e)}")
-                continue
+        # Sort by publish date (newest first)
+        jobs.sort(key=lambda x: x.get('published_date') or '', reverse=True)
         
         return jsonify({
             'success': True,
             'count': len(jobs),
-            'query': query,
-            'location': location,
+            'source': source,
             'jobs': jobs
         })
     
     except Exception as e:
-        app.logger.error(f"Error fetching Indeed jobs: {str(e)}")
+        app.logger.error(f"Error fetching remote jobs: {str(e)}")
         return jsonify({
             'success': False,
-            'error': f'Failed to fetch Indeed jobs: {str(e)}',
+            'error': f'Failed to fetch jobs: {str(e)}',
             'jobs': []
         }), 500
 
