@@ -1,0 +1,34 @@
+# Vercel ignore file
+# Ignore Flask app (not needed for serverless deployment)
+app.py
+templates/
+static/
+.replit
+replit.md
+
+# Ignore development files
+.env
+.env.local
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+
+# Ignore Replit-specific files
+.upm/
+uv.lock
+pyproject.toml
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore data directory
+data/
+
+# Keep only what's needed:
+# - index.html (root)
+# - api/ folder
+# - requirements.txt
+# - vercel.json
