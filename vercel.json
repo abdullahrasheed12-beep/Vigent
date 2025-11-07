@@ -2,22 +2,21 @@
   "version": 2,
   "builds": [
     {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
       "src": "api/**/*.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/api/test",
-      "dest": "api/test.py"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
-      "src": "/api/jobs",
-      "dest": "api/jobs.py"
-    },
-    {
-      "src": "/api/generate-application",
-      "dest": "api/generate-application.py"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
