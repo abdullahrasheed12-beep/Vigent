@@ -23,13 +23,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "api/jobs.py": {
-      "maxDuration": 30
-    },
-    "api/generate-application.py": {
-      "maxDuration": 60
-    }
-  }
+  ]
 }
